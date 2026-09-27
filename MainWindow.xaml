@@ -1,0 +1,140 @@
+﻿<Window x:Class="RoopBackBentou.MainWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="RoopBackBentou"
+Width="536"
+Height="843"
+MinWidth="530"
+MinHeight="650">
+    <Grid Margin="10,10,10,42" RenderTransformOrigin="0.649,0.502">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="197.04"/>
+            <RowDefinition Height="172"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Windows Output -->
+        <GroupBox Grid.Row="0"
+                  Grid.Column="0"
+                  Margin="5,5,5,5"
+                  Header="Windows Loopback">
+            <StackPanel Margin="15">
+                <TextBlock Text="Peak"
+                           FontSize="16"/>
+                <TextBlock x:Name="PeakText"
+                           Text="-∞ dB"
+                           FontSize="42"
+                           FontWeight="Bold"/>
+                <TextBlock Margin="0,20,0,0"
+                           Text="RMS"
+                           FontSize="16"/>
+                <TextBlock x:Name="RmsText"
+                           Text="-∞ dB"
+                           FontSize="42"
+                           FontWeight="Bold"/>
+                <Separator Margin="0,20,0,20"/>
+                <TextBlock Text="Reference Peak"/>
+                <TextBlock x:Name="ReferencePeakText"
+                           Text="-∞ dB"
+                           FontSize="24"/>
+                <TextBlock Margin="0,10,0,0"
+                           Text="Reference RMS"/>
+                <TextBlock x:Name="ReferenceRmsText"
+                           Text="-∞ dB"
+                           FontSize="24"/>
+            </StackPanel>
+        </GroupBox>
+        <!-- Recording 3/4 -->
+        <GroupBox Grid.Row="0"
+                  Grid.Column="1"
+                  Margin="5,5,10,5"
+                  Header="Recording 3/4">
+            <StackPanel Margin="15">
+                <TextBlock Text="Peak"
+                           FontSize="16"/>
+                <TextBlock x:Name="InputPeakText"
+                           Text="-∞ dB"
+                           FontSize="42"
+                           FontWeight="Bold"/>
+                <TextBlock Margin="0,20,0,0"
+                           Text="RMS"
+                           FontSize="16"/>
+                <TextBlock x:Name="InputRmsText"
+                           Text="-∞ dB"
+                           FontSize="42"
+                           FontWeight="Bold"/>
+                <Separator Margin="0,20,0,20"/>
+                <TextBlock Text="Peak Max"/>
+                <TextBlock x:Name="InputPeakMaxText"
+                           Text="-∞ dB"
+                           FontSize="42"
+                           FontWeight="Bold"
+                           Foreground="Red"/>
+            </StackPanel>
+        </GroupBox>
+        <!-- Controls -->
+        <GroupBox Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  Margin="5,5,10,33"
+                  Header="Controls">
+            <StackPanel Margin="10,0,-2,0" Height="134">
+                <WrapPanel HorizontalAlignment="Left">
+                    <Button x:Name="ReferenceButton"
+                            Width="117"
+                            Height="35"
+                            Content="Set Reference"
+                            Click="ReferenceButton_Click"/>
+                    <Button Width="119"
+                            Height="35"
+                            Content="Reset Peak Max"
+                            Click="ResetPeakMax_Click"/>
+                    <Button x:Name="FreezeButton"
+                            Width="132"
+                            Height="35"
+                            Content="Freeze Display"
+                            Click="FreezeButton_Click"/>
+                </WrapPanel>
+                <TextBox x:Name="DeviceListText"
+                         Margin="5,10,5,5"
+                         Height="82"
+                         IsReadOnly="True"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         TextWrapping="Wrap"/>
+            </StackPanel>
+        </GroupBox>
+        <!-- Difference -->
+        <GroupBox Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  Margin="5,5,5,48"
+                  Header="Difference">
+            <Grid Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- RMS -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Output → Input RMS Diff"
+                               FontSize="16"/>
+                    <TextBlock x:Name="IoDifferenceText"
+                               Text="0.0 dB"
+                               FontSize="40"
+                               FontWeight="Bold" Height="64"/>
+                </StackPanel>
+                <!-- Peak -->
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Output → Input Peak Diff"
+                               FontSize="16"/>
+                    <TextBlock x:Name="PeakDifferenceText"
+                               Text="0.0 dB"
+                               FontSize="40"
+                               FontWeight="Bold" Height="62"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
