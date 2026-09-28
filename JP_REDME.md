@@ -5,7 +5,8 @@
 ### 修正：
 > アプリを閉じた後も処理がバックグラウンドに残る場合があった問題を修正。<br>
 > オーディオメーターのUI更新処理を改善。<br>
----
+### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
+--- 
 <br>
 
 ### Windows の 音声、ループバック出力を、モニタリング。
