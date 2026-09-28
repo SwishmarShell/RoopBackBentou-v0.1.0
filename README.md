@@ -38,6 +38,9 @@ RoopBackBentou is a real-time audio monitoring tool for comparing Windows Loopba
 A.)  Mic Using > Permission
 B.) Later than>
 	Win Key > Surch "microphon" > App-specific microphone usage security \ Lunch Folder (RoopBackBentou.exe) > ON.
+
+!! Excuse me, v0.1.0 does not close perfectly. >Task Manager > Details Checked !!
+   If you don't mind, please use "v0.1.1."
 ````
 > - Developed to investigate a fixed audio level attenuation observed after a Windows 11 Insider Preview update. The tool compares Windows Loopback output with the actual recording input signal to detect and visualize level differences in real time.<br>
 
