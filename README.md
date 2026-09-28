@@ -1,5 +1,5 @@
 # RoopBackBentou v0.1.0
- Japanese Version => https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/JP_REDME.md
+ [Japanese Version REDME](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/JP_REDME.md)
 ## Changelog
 ### v0.1.1
 Fixed:
