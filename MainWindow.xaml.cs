@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
@@ -191,7 +192,7 @@ public partial class MainWindow : Window
         ? 20 * Math.Log10(rms)
         : -100;
 
-        Dispatcher.Invoke(() =>
+        Dispatcher.BeginInvoke(() =>
         {
             PeakText.Text =
             $"{currentPeakDb:F1} dB";
@@ -268,14 +269,22 @@ public partial class MainWindow : Window
         : "Freeze Display";
     }
 
-    protected override void OnClosed(
-    EventArgs e)
+    protected override void OnClosed(EventArgs e)
     {
-        capture?.StopRecording();
-        capture?.Dispose();
+        MessageBox.Show("Closed [ RoopBackBentou v0.1.1 ]");
+        if (capture != null)
+        {
+            capture.DataAvailable -= Capture_DataAvailable;
+            capture.StopRecording();
+            capture.Dispose();
+        }
 
-        inputCapture?.StopRecording();
-        inputCapture?.Dispose();
+        if (inputCapture != null)
+        {
+            inputCapture.DataAvailable -= InputCapture_DataAvailable;
+            inputCapture.StopRecording();
+            inputCapture.Dispose();
+        }
 
         base.OnClosed(e);
     }

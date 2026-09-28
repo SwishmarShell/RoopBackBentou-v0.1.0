@@ -9,6 +9,7 @@
     <Platforms>x64</Platforms>
     <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
