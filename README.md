@@ -5,6 +5,8 @@
 Fixed:
 - Fixed an issue where the application process could remain in the background after closing.
 - Improved audio meter UI update handling.
+
+### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
 --- 
 ### Monitoring Windows audio and loopback output.
 
