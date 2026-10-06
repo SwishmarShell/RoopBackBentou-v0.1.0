@@ -5,6 +5,19 @@
 ### 修正：
 > アプリを閉じた後も処理がバックグラウンドに残る場合があった問題を修正。<br>
 > オーディオメーターのUI更新処理を改善。<br>
+--- 
+## RoopBackBentou v0.2.3
+### 追加機能：
+- Windows Output と Input の Peak/RMS を比較表示。
+- Signal Difference を計測し、Threshold と Delay による OPEN / CLOSED 判定を実施。(※１)<br>
+- Windows既定オーディオデバイスに対応。
+- AudioDevicesWindow から 有効デバイス確認・更新が可能。<br><br>
+(※１) ・将来のアップデートでは、この２つの判定切り替えを、単音ボイスゲートとして、DAWへMIDIノート送信機能を実装。<br>
+　DAW録音中の自動ミュートON/OFFを、仮想MIDIノート受信＋ショートカット割り当てによって、実現する。<br>
+　このとき、単音ボイスを、コンデンサーマイクの近くの、キーボードの操作音や、マウスのクリック音を、Diff dB モニタリングから、指定のTresholdで、消音dB領域をつくる。<br>
+　Delayで、CLOSED判定領域になっても、発声直後の消音までのミリ秒間、OPEN判定のままになる設定が、このバ－ジョンでは、確かめられる。<br>
+![](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/v0.2.3_Preview.png "v0.2.3 の画面")<br>
+ 
 ### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
 --- 
 <br>
