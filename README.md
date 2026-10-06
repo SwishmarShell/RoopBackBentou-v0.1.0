@@ -1,5 +1,6 @@
 # RoopBackBentou v0.1.0
- [Japanese Version REDME](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/JP_REDME.md)
+ [Japanese Version REDME](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/JP_REDME.md)<br>
+ 
 ## Changelog
 ### v0.1.1
 Fixed:
@@ -20,7 +21,7 @@ Added:
 
 RoopBackBentou is a real-time audio monitoring tool for comparing Windows Loopback output and recording input levels. It displays Peak, RMS, and level differences to help identify unexpected audio attenuation in the signal path.<br><br>
 ※ If you're only monitoring Windows Loopback, it can also be displayed with the HD Audio Driver for Display Audio.<br><br>
-※ In v0.2.0, the plan is to also allow recording devices with Realtec(R) Audio Stereo Mix.
+
 ## Features
 > - Real-time Peak and RMS monitoring<br>
 > - Windows Loopback output monitoring<br>

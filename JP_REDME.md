@@ -5,14 +5,15 @@
 ### 修正：
 > アプリを閉じた後も処理がバックグラウンドに残る場合があった問題を修正。<br>
 > オーディオメーターのUI更新処理を改善。<br>
----
+### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
+--- 
 <br>
 
 ### Windows の 音声、ループバック出力を、モニタリング。
 
 ソースコードは、Antelope Audio Zen Go USB オーディオデバイスの、3/4 （３と４のパスで、ステレオ音声）の出力用です。<br><br>
 ※ Windows Loopback のみ、モニタリングする場合、HD Audio Driver for Display Audio でも表示可能。<br><br>
-※ v0.2.0 では、録音デバイスが、Realtec(R) Audio Stereo Mix でも可能にする予定。
+
 ## Features
 >各出力：Peak、RMS 値のリアルタイム表示<br>
 >　∟ Windowのオーディオ・ミキサーの、Loopback<br>
