@@ -1,6 +1,7 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -24,35 +25,144 @@ public partial class MainWindow : Window
     private double referenceRmsDb = double.NaN;
 
     private bool freezeDisplay = false;
-
+    
+    // Gate state variable
+    private GateState _gateState = GateState.Closed;
+    private double _openThreshold = 20.0;
+    private double _closeThreshold = 12.0;
+    // Timing variables for gate state transitions
+    private DateTime _openStartTime;
+    private DateTime _closeStartTime;
+    private int _openDelayMs = 50;
+    private int _closeDelayMs = 500;
+    
     public MainWindow()
     {
         InitializeComponent();
 
-        ShowInputDevices();
+        LoadIni();
+
+        UpdateCurrentDevices();
+
+        OpenThresholdBox.Text =
+            _openThreshold.ToString();
+
+        CloseThresholdBox.Text =
+            _closeThreshold.ToString();
+        
+        OpenDelayBox.Text =
+            _openDelayMs.ToString();
+        
+        CloseDelayBox.Text =
+            _closeDelayMs.ToString();
 
         StartCapture();
 
         StartInputCapture();
     }
-
-    private void ShowInputDevices()
+    // Gate state enumeration
+    public enum GateState
     {
-        DeviceListText.Text = "";
-
+        Closed,
+        Open
+    }
+    // Current device (Output & Input)
+    private void UpdateCurrentDevices()
+    {
         var enumerator =
         new MMDeviceEnumerator();
 
-        int index = 0;
+        var output =
+        enumerator.GetDefaultAudioEndpoint(
+        DataFlow.Render,
+        Role.Multimedia);
 
-        foreach (var device in
-        enumerator.EnumerateAudioEndPoints(
+        CurrentOutputText.Text =
+        output.FriendlyName;
+
+        var input =
+        enumerator.GetDefaultAudioEndpoint(
         DataFlow.Capture,
-        DeviceState.Active))
+        Role.Multimedia);
+
+        CurrentInputText.Text =
+        input.FriendlyName;
+    }
+
+    private void AudioDevices_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        var window =
+        new AudioDevicesWindow(this);
+
+        window.Show();
+    }
+
+    // Method to update the gate state based on the peak difference
+    private void UpdateGateState(double peakDiff)
+    {
+        if (_gateState == GateState.Closed)
         {
-            DeviceListText.Text +=
-            $"{index++}: {device.FriendlyName}\r\n";
+            if (peakDiff >= _openThreshold)
+            {
+                if (_openStartTime == DateTime.MinValue)
+                {
+                    _openStartTime = DateTime.Now;
+                }
+
+                if ((DateTime.Now - _openStartTime).TotalMilliseconds
+                >= _openDelayMs)
+                {
+                    _gateState = GateState.Open;
+                    _openStartTime = DateTime.MinValue;
+                }
+            }
+            else
+            {
+                _openStartTime = DateTime.MinValue;
+            }
         }
+        if (_gateState == GateState.Open)
+        {
+            if (peakDiff <= _closeThreshold)
+            {
+                if (_closeStartTime == DateTime.MinValue)
+                {
+                    _closeStartTime = DateTime.Now;
+                }
+
+                if ((DateTime.Now - _closeStartTime).TotalMilliseconds
+                >= _closeDelayMs)
+                {
+                    _gateState = GateState.Closed;
+                    _closeStartTime = DateTime.MinValue;
+                }
+            }
+            else
+            {
+                _closeStartTime = DateTime.MinValue;
+            }
+        }
+    }
+
+    private void StartInputCapture()
+    {
+        var enumerator =
+        new MMDeviceEnumerator();
+
+        var target =
+        enumerator.GetDefaultAudioEndpoint(
+        DataFlow.Capture,
+        Role.Multimedia);
+
+        inputCapture =
+        new WasapiCapture(target);
+
+        inputCapture.DataAvailable +=
+        InputCapture_DataAvailable;
+
+        inputCapture.StartRecording();
     }
 
     private void StartCapture()
@@ -66,40 +176,56 @@ public partial class MainWindow : Window
         capture.StartRecording();
     }
 
-    private void StartInputCapture()
+    // AudioDvicesWindow Refresh Botton Click Event
+    public void RefreshAudioInfo()
     {
-        var enumerator =
-        new MMDeviceEnumerator();
+        UpdateCurrentDevices();
+    }
 
-        MMDevice? target = null;
+    public void RefreshAudioDevices()
+    {
+        // Test
+        //MessageBox.Show("Start Refresh");
 
-        foreach (var device in
-        enumerator.EnumerateAudioEndPoints(
-        DataFlow.Capture,
-        DeviceState.Active))
+        if (inputCapture != null)
         {
-            if (device.FriendlyName.Contains("Recording 3/4"))
-            {
-                target = device;
-                break;
-            }
+            inputCapture.DataAvailable -=
+            InputCapture_DataAvailable;
+
+            inputCapture.StopRecording();
+            capture.StopRecording();
         }
 
-        if (target == null)
+        if (capture != null)
         {
-            MessageBox.Show(
-            "Recording 3/4 が見つかりません");
+            capture.DataAvailable -=
+            Capture_DataAvailable;
 
-            return;
+            inputCapture.Dispose();
+            capture.Dispose();
         }
+
 
         inputCapture =
-        new WasapiCapture(target);
-
+            new WasapiCapture(
+            new MMDeviceEnumerator()
+            .GetDefaultAudioEndpoint(
+            DataFlow.Capture,
+            Role.Multimedia));
         inputCapture.DataAvailable +=
         InputCapture_DataAvailable;
 
+
+        capture =
+            new WasapiLoopbackCapture();
+        capture.DataAvailable +=
+        Capture_DataAvailable;
+
         inputCapture.StartRecording();
+        capture.StartRecording();
+
+        // Test
+        //MessageBox.Show("RefreshAudioDevices");
     }
 
     private void InputCapture_DataAvailable(
@@ -214,6 +340,22 @@ public partial class MainWindow : Window
 
             double peakDiff =
             inputPeakDb - currentPeakDb;
+            // Update the gate state based on the peak difference
+            UpdateGateState(peakDiff);
+
+            GateStateText.Text =
+                    _gateState.ToString();
+            if (_gateState == GateState.Open)
+            {
+                GateStateText.Text = "OPEN";
+                GateStateText.Foreground = Brushes.LimeGreen;
+            }
+            else
+            {
+                GateStateText.Text = "CLOSED";
+                GateStateText.Foreground = Brushes.Red;
+            }
+
 
             IoDifferenceText.Text =
             $"{rmsDiff:+0.0;-0.0;0.0} dB";
@@ -268,9 +410,87 @@ public partial class MainWindow : Window
         ? "Resume Display"
         : "Freeze Display";
     }
+    // Event handler for the Apply button click event
+    private void ApplyButton_Click(
+    object sender,
+    RoutedEventArgs e)
+    {
+        if (double.TryParse(OpenThresholdBox.Text, out double open))
+            _openThreshold = open;
+
+        if (double.TryParse(CloseThresholdBox.Text, out double close))
+            _closeThreshold = close;
+
+        if (int.TryParse(OpenDelayBox.Text, out int openDelay))
+            _openDelayMs = openDelay;
+
+        if (int.TryParse(CloseDelayBox.Text, out int closeDelay))
+            _closeDelayMs = closeDelay;
+
+        SaveIni();
+
+
+        _openThreshold =
+        double.Parse(OpenThresholdBox.Text);
+
+        _closeThreshold =
+        double.Parse(CloseThresholdBox.Text);
+
+        _openDelayMs =
+        int.Parse(OpenDelayBox.Text);
+
+        _closeDelayMs =
+        int.Parse(CloseDelayBox.Text);
+    }
+
+    private readonly string IniPath =
+        Path.Combine(
+        AppDomain.CurrentDomain.BaseDirectory,
+        "VoiceGate.ini");
+
+    private void SaveIni()
+    {
+        var lines = new[]
+        {
+            "[VoiceGate]",
+            $"OpenThreshold={_openThreshold}",
+            $"CloseThreshold={_closeThreshold}",
+            $"OpenDelay={_openDelayMs}",
+            $"CloseDelay={_closeDelayMs}"
+        };
+
+        File.WriteAllLines(IniPath, lines);
+    }
+
+    private void LoadIni()
+    {
+        if (!File.Exists(IniPath))
+            return;
+
+        foreach (var line in File.ReadAllLines(IniPath))
+        {
+            if (line.StartsWith("OpenThreshold="))
+                _openThreshold =
+                    double.Parse(line.Split('=')[1]);
+
+            if (line.StartsWith("CloseThreshold="))
+                _closeThreshold =
+                    double.Parse(line.Split('=')[1]);
+
+            if(line.StartsWith("OpenDelay="))
+                _openDelayMs =
+                    int.Parse(line.Split('=')[1]);
+
+            if(line.StartsWith("CloseDelay="))
+                _closeDelayMs =
+                    int.Parse(line.Split('=')[1]);
+        }
+    }
 
     protected override void OnClosed(EventArgs e)
     {
+        SaveIni();
+
         MessageBox.Show("Closed [ RoopBackBentou v0.1.1 ]");
         if (capture != null)
         {

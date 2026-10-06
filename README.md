@@ -5,7 +5,15 @@
 ### v0.1.1
 Fixed:
 - Fixed an issue where the application process could remain in the background after closing.
-- Improved audio meter UI update handling.
+- Improved audio meter UI update handling.<br>
+---
+### v0.2.3
+Added:
+- Displays a comparison of Peak/RMS for Windows Output and Input.
+- Measures Signal Difference and determines OPEN/CLOSED based on Threshold and Delay.<br>
+( Future update: Monophonic Signal-type VoiceGate )
+- Supports the default Windows audio device.
+- Enabled devices can be checked and updated from the **WindowAudioDevices**.
 
 ### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
 --- 

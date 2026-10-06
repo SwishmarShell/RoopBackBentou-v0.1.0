@@ -2,72 +2,138 @@
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 Title="RoopBackBentou"
-Width="536"
-Height="843"
-MinWidth="530"
-MinHeight="650">
-    <Grid Margin="10,10,10,42" RenderTransformOrigin="0.649,0.502">
+Width="574"
+Height="845">
+    <Grid Margin="10,88,10,0"
+          RenderTransformOrigin="0.649,0.502"
+          Height="712"
+          VerticalAlignment="Top">
         <Grid.RowDefinitions>
+            <RowDefinition Height="330"/>
             <RowDefinition/>
-            <RowDefinition Height="197.04"/>
-            <RowDefinition Height="172"/>
+            <RowDefinition Height="114"/>
+            <RowDefinition Height="189"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="28*"/>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="255*"/>
         </Grid.ColumnDefinitions>
+        <GroupBox
+                  Grid.Column="1"
+                  Margin="5,-82,0,372"
+                  Header="Output Device"
+                  Grid.ColumnSpan="5">
+            <StackPanel Grid.ColumnSpan="2"
+                        Margin="10,0,-2,0"
+                        Height="54"
+                        VerticalAlignment="Top">
+                <TextBlock
+                        x:Name="CurrentOutputText"
+                        Text="Unknown"
+                        Width="476"
+                        HorizontalAlignment="Left"
+                        FontWeight="Bold"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox
+                  Grid.Column="1"
+                  Margin="5,-42,0,325"
+                  Header="Intput Device"
+                  Grid.ColumnSpan="5">
+            <StackPanel Grid.ColumnSpan="2"
+                        Margin="10,0,-2,0"
+                        Height="22"
+                        VerticalAlignment="Center">
+
+                <TextBlock
+                        x:Name="CurrentInputText"
+                        Text="Unknown"
+                        HorizontalAlignment="Left"
+                        Width="475"
+                        RenderTransformOrigin="0.5,0.5"
+                        FontWeight="Bold">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.658"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
         <!-- Windows Output -->
         <GroupBox Grid.Row="0"
-                  Grid.Column="0"
-                  Margin="5,5,5,5"
-                  Header="Windows Loopback">
-            <StackPanel Margin="15">
+                  Grid.Column="1"
+                  Margin="5,10,5,10"
+                  Header="Windows Output"
+                  Grid.ColumnSpan="5">
+            <StackPanel Margin="15,0,0,0"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Width="207">
                 <TextBlock Text="Peak"
-                           FontSize="16"/>
+                           FontSize="16"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"/>
                 <TextBlock x:Name="PeakText"
                            Text="-∞ dB"
                            FontSize="42"
                            FontWeight="Bold"/>
                 <TextBlock Margin="0,20,0,0"
                            Text="RMS"
-                           FontSize="16"/>
+                           FontSize="14"/>
                 <TextBlock x:Name="RmsText"
                            Text="-∞ dB"
-                           FontSize="42"
+                           FontSize="23"
                            FontWeight="Bold"/>
                 <Separator Margin="0,20,0,20"/>
                 <TextBlock Text="Reference Peak"/>
                 <TextBlock x:Name="ReferencePeakText"
                            Text="-∞ dB"
-                           FontSize="24"/>
+                           FontSize="18"/>
                 <TextBlock Margin="0,10,0,0"
                            Text="Reference RMS"/>
                 <TextBlock x:Name="ReferenceRmsText"
                            Text="-∞ dB"
-                           FontSize="24"/>
+                           FontSize="18"/>
             </StackPanel>
         </GroupBox>
-        <!-- Recording 3/4 -->
+        <!-- Input -->
         <GroupBox Grid.Row="0"
-                  Grid.Column="1"
-                  Margin="5,5,10,5"
-                  Header="Recording 3/4">
-            <StackPanel Margin="15">
+                  Grid.Column="5"
+                  Margin="0,10,5,10"
+                  Header="Input">
+            <StackPanel Margin="15,0,15,0"
+                        Height="276"
+                        VerticalAlignment="Top">
                 <TextBlock Text="Peak"
-                           FontSize="16"/>
+                           FontSize="16"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"/>
                 <TextBlock x:Name="InputPeakText"
                            Text="-∞ dB"
                            FontSize="42"
                            FontWeight="Bold"/>
                 <TextBlock Margin="0,20,0,0"
                            Text="RMS"
-                           FontSize="16"/>
+                           FontSize="14"/>
                 <TextBlock x:Name="InputRmsText"
                            Text="-∞ dB"
-                           FontSize="42"
+                           FontSize="23"
                            FontWeight="Bold"/>
                 <Separator Margin="0,20,0,20"/>
-                <TextBlock Text="Peak Max"/>
+                <TextBlock
+                           FontSize="14">
+                    <Run Text="Peak Max"/>
+                    <Run Language="ja-jp"
+                         Text=" ( Hold )"/>
+                </TextBlock>
                 <TextBlock x:Name="InputPeakMaxText"
                            Text="-∞ dB"
                            FontSize="42"
@@ -76,65 +142,221 @@ MinHeight="650">
             </StackPanel>
         </GroupBox>
         <!-- Controls -->
-        <GroupBox Grid.Row="1"
-                  Grid.ColumnSpan="2"
-                  Margin="5,5,10,33"
-                  Header="Controls">
-            <StackPanel Margin="10,0,-2,0" Height="134">
+        <GroupBox
+                  Grid.ColumnSpan="6"
+                  Margin="5,10,5,10"
+                  Header="Controls"
+                  RenderTransformOrigin="0.501,0.408"
+                  Grid.Row="1">
+            <StackPanel Margin="10,0,-2,0"
+                        Height="51"
+                        VerticalAlignment="Top">
                 <WrapPanel HorizontalAlignment="Left">
+                    <Button
+                            Content="AudioDevices..."
+                            Click="AudioDevices_Click"
+                            Width="152"
+                            FontWeight="Bold"/>
                     <Button x:Name="ReferenceButton"
-                            Width="117"
+                            Width="87"
                             Height="35"
                             Content="Set Reference"
                             Click="ReferenceButton_Click"/>
-                    <Button Width="119"
-                            Height="35"
-                            Content="Reset Peak Max"
-                            Click="ResetPeakMax_Click"/>
                     <Button x:Name="FreezeButton"
-                            Width="132"
+                            Width="155"
                             Height="35"
                             Content="Freeze Display"
-                            Click="FreezeButton_Click"/>
+                            Click="FreezeButton_Click"
+                            Foreground="Blue"/>
+                    <Button Width="92"
+                            Height="35"
+                            Content="Reset Peak Max"
+                            Click="ResetPeakMax_Click"
+                            Foreground="Red"/>
                 </WrapPanel>
-                <TextBox x:Name="DeviceListText"
-                         Margin="5,10,5,5"
-                         Height="82"
-                         IsReadOnly="True"
-                         VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Auto"
-                         TextWrapping="Wrap"/>
             </StackPanel>
         </GroupBox>
         <!-- Difference -->
         <GroupBox Grid.Row="2"
-                  Grid.ColumnSpan="2"
-                  Margin="5,5,5,48"
-                  Header="Difference">
-            <Grid Margin="15">
+                  Grid.ColumnSpan="6"
+                  Margin="7,10,5,11"
+                  Header="Windows Output → [ Difference（Diff) dB ] → Input">
+            <Grid Margin="10,0,-2,0"
+                  Height="400"
+                  RenderTransformOrigin="0.504,1.013">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="103*"/>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="112*"/>
                 </Grid.ColumnDefinitions>
                 <!-- RMS -->
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Output → Input RMS Diff"
+                <StackPanel Grid.Column="0"
+                            Margin="0,0,0,256"
+                            Grid.ColumnSpan="2">
+                    <TextBlock Text="RMS Diff"
                                FontSize="16"/>
                     <TextBlock x:Name="IoDifferenceText"
                                Text="0.0 dB"
                                FontSize="40"
-                               FontWeight="Bold" Height="64"/>
+                               FontWeight="Bold"
+                               Height="46"
+                               Width="180"
+                               HorizontalAlignment="Right"/>
                 </StackPanel>
                 <!-- Peak -->
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="Output → Input Peak Diff"
+                <StackPanel Grid.Column="2"
+                            Height="74"
+                            VerticalAlignment="Top">
+                    <TextBlock Text="Peak Diff"
                                FontSize="16"/>
                     <TextBlock x:Name="PeakDifferenceText"
                                Text="0.0 dB"
                                FontSize="40"
-                               FontWeight="Bold" Height="62"/>
+                               FontWeight="Bold"
+                               Height="62"
+                               Width="185"
+                               HorizontalAlignment="Right"/>
                 </StackPanel>
+                <StackPanel Grid.Column="2"
+                            Height="25"
+                            VerticalAlignment="Top"
+                            Margin="0,104,0,0"/>
             </Grid>
         </GroupBox>
+        <TextBlock Text="Send Signal Gate"
+                   FontSize="11"
+                   FontWeight="Bold"
+                   Margin="0,3,0,0"
+                   Grid.Row="3" Width="554"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="5"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Height="16"/>
+        <TextBlock x:Name="GateStateText"
+                   Text="CLOSED"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,21,0,0"
+                   Grid.Row="3"
+                   Width="554"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="5"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Height="21"/>
+        <TextBlock
+            Text="OpenThreshold:"
+            FontSize="16"
+            Margin="70,46,0,0"
+            Grid.Row="3"
+            HorizontalAlignment="Left"
+            Width="122"
+            Grid.Column="1"
+            RenderTransformOrigin="0.5,0.5"
+            VerticalAlignment="Top"
+            Height="24"
+            TextAlignment="Center"
+            Grid.ColumnSpan="2">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.269"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.745"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="OpenThresholdBox"
+                 Text="OpenThresholdBox"
+                 FontSize="16"
+                 Margin="22,45,0,0"
+                 Grid.Row="3"
+                 RenderTransformOrigin="0.78,0.556"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Left"
+                 Width="50"
+                 Height="24"
+                 TextAlignment="Right"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"/>
+        <TextBlock
+            Text="CloseThreshold:"
+            FontSize="16"
+            Margin="70,80,0,0"
+            Grid.Row="3"
+            HorizontalAlignment="Left"
+            Width="122"
+            Grid.Column="1"
+            VerticalAlignment="Top"
+            Height="24"
+            Grid.ColumnSpan="2"
+            TextAlignment="Center">
+        </TextBlock>
+        <TextBox x:Name="CloseThresholdBox"
+                 Text="CloseThresholdBox"
+                 FontSize="16"
+                 Margin="22,80,0,0"
+                 Grid.Row="3"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Width="50"
+                 Height="24"
+                 TextAlignment="Right"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="3"/>
+        <TextBlock
+            Text="OpenDelay:"
+            FontSize="16"
+            Margin="0,44,0,0"
+            Grid.Row="3"
+            Grid.Column="5"
+            HorizontalAlignment="Center"
+            Width="219"
+            VerticalAlignment="Top"
+            Height="21"/>
+        <TextBox x:Name="OpenDelayBox"
+                 Text="OpenDelayBox"
+                 FontSize="16"
+                 Margin="119,45,0,0"
+                 Grid.Row="3"
+                 Grid.Column="5"
+                 VerticalAlignment="Top"
+                 Width="50"
+                 Height="24"
+                 TextAlignment="Right"
+                 HorizontalAlignment="Left"/>
+        <TextBlock
+            Text="CloseDelay:"
+            FontSize="16"
+            Margin="0,80,0,0"
+            Grid.Row="3"
+            Grid.Column="5"
+            HorizontalAlignment="Center"
+            Width="219"
+            VerticalAlignment="Top"
+            Height="21"/>
+        <TextBox x:Name="CloseDelayBox"
+                 Text="CloseDelayBox"
+                 FontSize="16"
+                 Margin="119,81,0,0"
+                 Grid.Row="3"
+                 Grid.Column="5"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Width="50"
+                 Height="24"
+                 TextAlignment="Right"/>
+        <Button
+            Content="Apply Gate"
+            Click="ApplyButton_Click"
+            Margin="13,110,0,49"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Grid.Column="4"
+            HorizontalAlignment="Left"
+            Width="74"/>
     </Grid>
 </Window>
