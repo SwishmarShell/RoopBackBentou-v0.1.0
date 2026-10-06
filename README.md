@@ -13,7 +13,8 @@ Added:
 - Measures Signal Difference and determines OPEN/CLOSED based on Threshold and Delay.<br>
 ( Future update: Monophonic Signal-type VoiceGate )
 - Supports the default Windows audio device.
-- Enabled devices can be checked and updated from the **WindowAudioDevices**.
+- Enabled devices can be checked and updated from the **WindowAudioDevices**.<br>
+![](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/blob/master/v0.2.3_Preview.png "v0.2.3 Window")<br>
 
 ### Download:[Latest Release](https://github.com/SwishmarShell/RoopBackBentou-v0.1.0/releases)
 --- 
