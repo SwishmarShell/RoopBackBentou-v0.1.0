@@ -11,7 +11,8 @@
 - Windows Output と Input の Peak/RMS を比較表示。
 - Signal Difference を計測し、Threshold と Delay による OPEN / CLOSED 判定を実施。(※１)<br>
 - Windows既定オーディオデバイスに対応。
-- AudioDevicesWindow から 有効デバイス確認・更新が可能。<br><br>
+- AudioDevicesWindow から 有効デバイス確認・更新が可能。
+- オート・設定ファイル保存（.ini）＆ 起動時に読み取り。<br><br>
 (※１) ・将来のアップデートでは、この２つの判定切り替えを、単音ボイスゲートとして、DAWへMIDIノート送信機能を実装。<br>
 　DAW録音中の自動ミュートON/OFFを、仮想MIDIノート受信＋ショートカット割り当てによって、実現する。<br>
 　このとき、単音ボイスを、コンデンサーマイクの近くの、キーボードの操作音や、マウスのクリック音を、Diff dB モニタリングから、指定のTresholdで、消音dB領域をつくる。<br>
